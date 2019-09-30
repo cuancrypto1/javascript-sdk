@@ -40,4 +40,16 @@ export class FloodGateClient implements IFloodGateClient {
       callback(result);
     });
   }
+
+  GetValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: Type.User) {
+    this.user = _user;
+
+    this.service.getFlags((value) => {
+      const evaluator = new Evaluator();
+      const result = evaluator.Evaluate(_key, value, _defaultValue, _user);
+
+      // Return flag value to caller
+      callback(result);
+    });
+  }
 }

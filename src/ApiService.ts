@@ -1,8 +1,7 @@
 import * as Types from "./Types";
 
-// Development mode only
-// declare const require: any;
-// const fetch = require("node-fetch");
+// development mode only
+const fetch = require("node-fetch");
 
 interface IHttpResponse extends Response {
   parsedBody?: any;
