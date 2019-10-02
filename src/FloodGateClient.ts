@@ -5,6 +5,7 @@ import * as Type from "./Types";
 
 export interface IFloodGateClient {
   IsOn(key: string, defaultValue: boolean, callback: (value: any) => void, user?: Type.User): any;
+  GetValue(key: string, defaultValue: any, callback: (value: any) => void, user?: Type.User): any;
 }
 
 export class FloodGateClient implements IFloodGateClient {

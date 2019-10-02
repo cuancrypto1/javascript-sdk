@@ -1,3 +1,4 @@
+export const ENV: string = "production";
 export const COMPARATOR_EQUAL_TO:number = 1;
 export const COMPARATOR_NOT_EQUAL_TO:number = 2;
 export const COMPARATOR_GREATOR:number = 3;

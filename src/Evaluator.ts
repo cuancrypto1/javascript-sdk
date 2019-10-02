@@ -1,9 +1,7 @@
 import * as Type from "./Types";
 import * as Const from "./Consts";
-// import * as sha1 from "js-sha1";
-
-// development mode only
-const sha1 = require('js-sha1');
+// @ts-ignore <ts(7016)>
+import * as sha1 from "js-sha1";
 
 export interface IEvaluator {
   Evaluate(_key:string, _json: any, _defaultValue: any, _user?: Type.User): any
@@ -14,8 +12,8 @@ export class Evaluator implements IEvaluator {
     // @ts-ignore <ts(2339)>
     const flags = Object.values(_json);
 
+    // @ts-ignore <ts(2769)>
     const flag: any = flags.find((flag: { key: string; }) => flag.key === _key);
-    console.log(flag);
 
     if (flag === undefined || flag === null) {
       // No flag found, return default value
@@ -33,7 +31,6 @@ export class Evaluator implements IEvaluator {
     }
 
     if (!flag['is_targeting_enabled']) {
-
       // Evaluate rollouts
       if (flag['is_rollout']) {
         return this.EvaluateRollout(_key, _user['id'], flag['rollouts'], _defaultValue);
@@ -53,7 +50,7 @@ export class Evaluator implements IEvaluator {
     // @ts-ignore <ts(2339)>
     const targets = Object.values(_targets);
 
-    let value = _defaultValue;
+    let value: any = _defaultValue;
     let ruleResult: boolean = false;
     let evaluates: boolean = true;
     let target: any;
@@ -65,14 +62,13 @@ export class Evaluator implements IEvaluator {
         evaluates = evaluates && ruleResult;
       }
 
-
       if (evaluates) {
-        // TODO: Check for rollouts
-  
-        console.log(target['is_rollout']);
-
         if (target['is_rollout']) {
-          return this.EvaluateRollout(_key, _user['id'], target['rollouts'], _defaultValue);
+          return this.EvaluateRollout(
+            _key,
+            _user['id'],
+            target['rollouts'],
+            _defaultValue);
         }
   
         return value;
@@ -87,8 +83,9 @@ export class Evaluator implements IEvaluator {
     const rules = Object.values(_rules);
 
     let result: boolean = false;
+    let rule: any;
 
-    for (const rule of rules) {
+    for (rule of rules) {
       const userAttributeValue = this.GetUserAttributeValue(rule['attribute'], _user);
       if (!userAttributeValue) continue;
       

@@ -1,6 +1,6 @@
 {
   "name": "floodgate-javascript-sdk",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "JavaScript SDK for floodgate.io",
   "main": "dist/index.js",
   "scripts": {
@@ -24,11 +24,8 @@
     "url": "https://github.com/floodgate-io/javascript-sdk/issues"
   },
   "homepage": "https://github.com/floodgate-io/javascript-sdk#readme",
-  "devDependencies": {
-    "node-fetch": "^2.6.0"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "@types/node": "^12.7.8",
     "js-sha1": "^0.6.0"
   }
 }
