@@ -146,7 +146,7 @@ export class Evaluator implements IEvaluator {
   
   private GetScale(_key:string, _userId: string): number {
     const hashString: string = _key + _userId;
-    const hash: any = sha1(hashString).substring(0, 7);
+    const hash: any = sha1.hex(hashString).substring(0, 7);
     const scale: number = parseInt(hash, 16) % 100;
     return scale;
   }

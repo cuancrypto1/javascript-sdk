@@ -27,5 +27,8 @@
   "devDependencies": {},
   "dependencies": {
     "js-sha1": "^0.6.0"
-  }
+  },
+  "bundleDependencies": [
+    "js-sha1"
+  ]
 }
