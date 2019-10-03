@@ -1,6 +1,6 @@
 {
   "name": "floodgate-javascript-sdk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "JavaScript SDK for floodgate.io",
   "main": "dist/index.js",
   "scripts": {
@@ -32,6 +32,8 @@
     "ky-universal": "^0.3.0"
   },
   "bundleDependencies": [
-    "js-sha1", "ky", "ky-universal"
+    "js-sha1",
+    "ky",
+    "ky-universal"
   ]
 }
