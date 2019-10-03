@@ -2,6 +2,7 @@ import { ICache, InMemoryCache } from "./Cache";
 import { IConfigBase } from "./ConfigBase";
 import { ApiService } from "./ApiService";
 import * as Types from "./Types";
+import * as Consts from "./Consts";
 
 export abstract class ServiceBase {
   protected config: IConfigBase;
@@ -29,6 +30,10 @@ export abstract class ServiceBase {
       {
         key: "Content-Type",
         value: "application/json"
+      },
+      {
+        key: "FloodGate-SDK-Agent",
+        value: `js-v${Consts.SDK_VERSION}`
       }
     ];
 
@@ -43,7 +48,7 @@ export abstract class ServiceBase {
     }
 
     api.get(url)
-    .then((response) => { 
+    .then((response) => {
       if (response.status == 304) { // read cache
         const json: any = this.cache.Get(this.config.sdkKey);
         callback(json);
@@ -65,7 +70,6 @@ export abstract class ServiceBase {
         this.cache.Set(this.config.sdkKey, json);
         callback(json);
       }
-
     })
     .catch((error) => {
       // return cache if available
@@ -76,6 +80,8 @@ export abstract class ServiceBase {
       
       throw error;
     });
+    
+    
   }
 
   private validateJson(json: string): boolean {

@@ -1,4 +1,6 @@
+import ky from "ky-universal";
 import * as Types from "./Types";
+import * as Consts from "./Consts";
 
 interface IHttpResponse extends Response {
   parsedBody?: any;
@@ -7,7 +9,6 @@ interface IHttpResponse extends Response {
 export class ApiService {
 
   private _headers: string[][] = [];
-  private _method: string = "GET";
 
   public setHeaders (headers: Types.KeyValue<string, string>[]): ApiService {
     for (const i in headers) {
@@ -31,19 +32,17 @@ export class ApiService {
     this._headers = [];
   }
 
-  public get(url: string): Promise<IHttpResponse> {
+  public async get(url: string): Promise<IHttpResponse> {
     let response: IHttpResponse;
 
     return new Promise((resolve, reject) => {
-      const requestConfig = {
-        method: "GET",
+      ky(url, {
+        timeout: 10000,
         headers: this._headers
-      };
-      
-      fetch(url, requestConfig)
+      })
       .then((res: Response) => {
         response = res;
-
+        
         if (response.status === 200) {
           return res.json();
         }

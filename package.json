@@ -13,10 +13,11 @@
     "url": "git+https://github.com/floodgate-io/javascript-sdk.git"
   },
   "keywords": [
-    "featureflag",
-    "featuretoggle",
-    "softlaunch",
-    "darklaunch"
+    "floodgate",
+    "feature flag",
+    "feature toggle",
+    "soft launch",
+    "remote config"
   ],
   "author": "FloodGate",
   "license": "MIT",
@@ -26,9 +27,11 @@
   "homepage": "https://github.com/floodgate-io/javascript-sdk#readme",
   "devDependencies": {},
   "dependencies": {
-    "js-sha1": "^0.6.0"
+    "js-sha1": "^0.6.0",
+    "ky": "^0.14.0",
+    "ky-universal": "^0.3.0"
   },
   "bundleDependencies": [
-    "js-sha1"
+    "js-sha1", "ky", "ky-universal"
   ]
 }

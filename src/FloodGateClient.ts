@@ -4,7 +4,6 @@ import { Evaluator } from "./Evaluator";
 import * as Type from "./Types";
 
 export interface IFloodGateClient {
-  IsOn(key: string, defaultValue: boolean, callback: (value: any) => void, user?: Type.User): any;
   GetValue(key: string, defaultValue: any, callback: (value: any) => void, user?: Type.User): any;
 }
 
@@ -25,21 +24,6 @@ export class FloodGateClient implements IFloodGateClient {
     else {
       throw new Error("Invalid service");
     }
-  }
-
-  IsOn(_key: string, _defaultValue: boolean, callback: (value: any) => void, _user?: Type.User) {
-    this.user = _user;
-
-    this.service.getFlags((value) => {
-      let result: boolean = _defaultValue;
-
-      const evaluator = new Evaluator();
-      result = evaluator.Evaluate(_key, value, _defaultValue, _user);
-
-      // Return flag value to caller
-      // true | false
-      callback(result);
-    });
   }
 
   GetValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: Type.User) {

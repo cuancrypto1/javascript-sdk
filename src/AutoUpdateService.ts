@@ -14,10 +14,6 @@ export class AutoUpdateService extends ServiceBase implements IAutoUpdateService
     this.timer = setInterval(() => this.refresh(), _config.refreshInterval * 1000);
   }
 
-  refresh(): void {
-    // ...
-  }
-
   getFlags(callback: (_value: any) => void): void {
     super.fetchRemote((_value) => {
       callback(_value);
