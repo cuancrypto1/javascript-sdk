@@ -12,8 +12,9 @@ export abstract class ServiceBase {
     this.config = _config;
 
     this.cache = new InMemoryCache();
-    if (_config.cache)
+    if (_config.cache) {
       this.cache = _config.cache;
+    }
   }
 
   /**
