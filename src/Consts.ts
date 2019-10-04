@@ -1,3 +1,5 @@
+export const ENV: string = "production";
+export const SDK_VERSION = "1.0.4";
 export const COMPARATOR_EQUAL_TO:number = 1;
 export const COMPARATOR_NOT_EQUAL_TO:number = 2;
 export const COMPARATOR_GREATOR:number = 3;

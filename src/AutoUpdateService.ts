@@ -10,11 +10,8 @@ export class AutoUpdateService extends ServiceBase implements IAutoUpdateService
 
   constructor(_config: IAutoUpdateConfig) {
     super(_config);
+    // @ts-ignore <ts(2322)>
     this.timer = setInterval(() => this.refresh(), _config.refreshInterval * 1000);
-  }
-
-  refresh(): void {
-    // ...
   }
 
   getFlags(callback: (_value: any) => void): void {
