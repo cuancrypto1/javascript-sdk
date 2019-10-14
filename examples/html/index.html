@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="../../dist/floodgate.js"></script>
+    <script type="text/javascript">
+      let client = floodgate.createClient("c3fc7952adc639aa5b23e4ea8a9b2d365d7efa2a116c77c8b949dae037e5");
+
+      const key = 'buy-now-colour';
+
+      client.GetValue(key, 'gray', (value) => {
+        console.log(`1) ${key} is ${value}`);
+      });
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

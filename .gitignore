@@ -1,6 +1,9 @@
 *.code-workspace
+package-lock.json
+*.backup
 
 [Dd]ist
+[Ll]ibrary
 
 # Logs
 logs
