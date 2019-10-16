@@ -28,13 +28,23 @@ export class FloodGateClient implements IFloodGateClient {
 
   GetValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: Type.User) {
     this.user = _user;
+    
+    try {
+      this.service.GetFlags((value) => {
+        if (value) {
+          const evaluator = new Evaluator();
+          const result = evaluator.Evaluate(_key, value, _defaultValue, _user);
 
-    this.service.getFlags((value) => {
-      const evaluator = new Evaluator();
-      const result = evaluator.Evaluate(_key, value, _defaultValue, _user);
-
-      // Return flag value to caller
-      callback(result);
-    });
+          // Return flag value to caller
+          callback(result);
+        }
+        else {
+          callback(_defaultValue);
+        }
+      });
+    }
+    catch (error) {
+      callback(_defaultValue);
+    }
   }
 }

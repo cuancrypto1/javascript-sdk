@@ -9,7 +9,8 @@ module.exports = {
     // filename: '[name].[chunkhash].js',
     filename: 'floodgate.js',
     // path: path.resolve(__dirname, 'webpackdist')
-    path: path.resolve('./library')
+    path: path.resolve('./library'),
+    library: 'floodgate'
 	},
 
 	// plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin()],

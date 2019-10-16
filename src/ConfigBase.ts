@@ -1,29 +1,32 @@
-import { ICache, InMemoryCache } from "./Cache";
+import * as Cache from "./Cache";
 
 export interface IConfigBase {
   sdkKey: string;
   baseUrl?: string;
-  cache?: ICache;
+  cache?: Cache.ICache;
   buildUrl(): string;
 }
 
 export abstract class ConfigBase implements IConfigBase {
   public sdkKey: string;
 
-  public baseUrl: string = "https://cdn.floodgate.io";
+  public cache?: Cache.ICache;
 
-  public cache?: ICache;
+  public readonly baseUrl: string = "https://cdn.floodgate.io";
 
   private readonly API_VERSION: string = "v1";
 
   constructor(_sdkKey: string, _options: IConfigBase) {
-    if (!_sdkKey)
+    if (!_sdkKey) {
       throw new Error("Invalid SDK Key");
-
-    if (!_options.cache)
-      this.cache = new InMemoryCache();
+    }
 
     if (_options) {
+      if (!_options.cache) {
+        // this.cache = new Cache.InMemoryCache();
+        this.cache = new Cache.LocalStorageCache();
+      }
+
       if (_options.baseUrl) {
         this.baseUrl = _options.baseUrl;
       }

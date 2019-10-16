@@ -22,7 +22,7 @@ export abstract class ServiceBase {
    * Check if the data has been modified and if not return from cache
    * @param callback 
    */
-  public fetchRemote(callback: (value: any) => void): void {
+  public FetchRemote(callback: (value: any) => void): void {
     const requestHeaders: Types.KeyValue<string, string>[] = [
       {
         key: "Accept",
@@ -75,14 +75,14 @@ export abstract class ServiceBase {
     .catch((error) => {
       // return cache if available
       const json: any = this.cache.Get(this.config.sdkKey);
+
       if (json) {
         callback(json);
       }
-      
-      throw error;
+
+      callback(null);
+      // throw error;
     });
-    
-    
   }
 
   private validateJson(json: string): boolean {

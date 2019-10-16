@@ -6,7 +6,7 @@ export interface IAutoUpdateConfig extends IConfigBase {
 
 export class AutoUpdateConfig extends ConfigBase implements IAutoUpdateConfig {
   refreshInterval: number = 60;
-  
+
   constructor(_sdkKey: string, _options: IAutoUpdateConfig) {
     super(_sdkKey, _options);
 

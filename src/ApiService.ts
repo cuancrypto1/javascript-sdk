@@ -36,30 +36,37 @@ export class ApiService {
     let response: IHttpResponse;
 
     return new Promise((resolve, reject) => {
-      ky(url, {
-        timeout: 10000,
-        headers: this._headers
-      })
-      .then((res: Response) => {
-        response = res;
-        
-        if (response.status === 200) {
-          return res.json();
-        }
-        else if (response.status === 304) {
-          return;
-        }
-        
-        const error = new Error("Server response error");
+      try {
+
+        ky(url, {
+          timeout: 10000,
+          headers: this._headers
+        })
+        .then((res: Response) => {
+          response = res;
+          
+          if (response.status === 200) {
+            return res.json();
+          }
+          else if (response.status === 304) {
+            return;
+          }
+          
+          const error = new Error("Server response error");
+          reject(error);
+        })
+        .then((body: IHttpResponse) => {
+          response.parsedBody = body;
+          resolve(response);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+
+      }
+      catch (error) {
         reject(error);
-      })
-      .then((body: IHttpResponse) => {
-        response.parsedBody = body;
-        resolve(response);
-      })
-      .catch((error: any) => {
-        reject(error);
-      });
+      }
     });
   }
 }

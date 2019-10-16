@@ -28,10 +28,17 @@ export class InMemoryCache implements ICache {
 
 export class LocalStorageCache implements ICache {
   Get(key: string): any {
-    return localStorage.getItem(key);
+    if (localStorage.getItem(key) !== null) {
+      // @ts-ignore <ts(2322)>
+      const value:string = localStorage.getItem(key);
+      const result = JSON.parse(value);
+      return result;
+    }
+    return;
   }
   
   Set(key: string, value: any): void {
-    localStorage.setItem(key, value);
+    const encoded = JSON.stringify(value);
+    localStorage.setItem(key, encoded);
   }
 }

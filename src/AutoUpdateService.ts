@@ -2,7 +2,7 @@ import { ServiceBase } from "./ServiceBase";
 import { IAutoUpdateConfig } from "./AutoUpdateConfig";
 
 export interface IAutoUpdateService {
-  getFlags(callback: (value: any) => void): void;
+  GetFlags(callback: (value: any) => void): void;
 }
 
 export class AutoUpdateService extends ServiceBase implements IAutoUpdateService {
@@ -14,12 +14,12 @@ export class AutoUpdateService extends ServiceBase implements IAutoUpdateService
     this.timer = setInterval(() => this.refreshConfig(), _config.refreshInterval * 1000);
   }
 
-  refreshConfig(): void {
-    // TODO: Implement background config refresh
+  private refreshConfig(): void {
+    super.FetchRemote(() => {});
   }
 
-  getFlags(callback: (_value: any) => void): void {
-    super.fetchRemote((_value) => {
+  GetFlags(callback: (_value: any) => void): void {
+    super.FetchRemote((_value) => {
       callback(_value);
     });
   }
