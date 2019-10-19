@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "buildcommon": "webpack",
+    "buildlib": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "transform": "npm run build",
     "start": "webpack-dev-server"
@@ -37,6 +37,7 @@
     "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
+    "events": "^3.0.0",
     "js-sha1": "^0.6.0",
     "ky": "^0.14.0",
     "ky-universal": "^0.3.0"
@@ -44,6 +45,7 @@
   "bundleDependencies": [
     "js-sha1",
     "ky",
-    "ky-universal"
+    "ky-universal",
+    "events"
   ]
 }

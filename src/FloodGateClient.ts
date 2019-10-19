@@ -1,21 +1,30 @@
+import { EventEmitter } from "events";
 import { AutoUpdateConfig, IAutoUpdateConfig } from "./AutoUpdateConfig";
 import { AutoUpdateService, IAutoUpdateService } from "./AutoUpdateService";
 import { Evaluator } from "./Evaluator";
 import * as Type from "./Types";
+import * as Const from "./Consts";
 
 export interface IFloodGateClient {
-  GetValue(key: string, defaultValue: any, callback: (value: any) => void, user?: Type.User): any;
+  IsReady(): boolean;
+  FetchValue(key: string, defaultValue: any, callback: (value: any) => void, user?: Type.User): any;
+  GetValue(key: string, defaultValue: any, user?: Type.User): any;
 }
 
-export class FloodGateClient implements IFloodGateClient {
+export class FloodGateClient extends EventEmitter implements IFloodGateClient {
+
+  private isReady = false;
 
   config: IAutoUpdateConfig;
-  service: IAutoUpdateService;
+  service: AutoUpdateService;
   user?: Type.User;
 
   constructor(_config: IAutoUpdateConfig) {
-    this.config = _config;
+    super();
 
+    const self = this;
+
+    this.config = _config;
     if (_config && _config instanceof AutoUpdateConfig) {
       this.service = new AutoUpdateService(_config);
     }
@@ -24,9 +33,26 @@ export class FloodGateClient implements IFloodGateClient {
     else {
       throw new Error("Invalid service");
     }
+
+    this.service.on('ready', function() {
+      self.isReady = true;
+      self.emit(Const.EVENT_SDK_READY);
+    }).Start();
   }
 
-  GetValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: Type.User) {
+  public IsReady() {
+    return this.isReady;
+  }
+
+  /**
+   * Return a value of the requested flag or the default value
+   * Fetch data from remote server if not available in cache
+   * @param {string} _key - Flag key
+   * @param {string} _defaultValue - Default value to return to the client if no flag is found
+   * @param callback - Client callback method
+   * @param _user - User to evaluate against
+   */
+  FetchValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: Type.User): any {
     this.user = _user;
     
     try {
@@ -45,6 +71,40 @@ export class FloodGateClient implements IFloodGateClient {
     }
     catch (error) {
       callback(_defaultValue);
+    }
+  }
+
+  /**
+   * Return a value of the requested flag or the default value.
+   * 
+   * This method does not use callbacks, if the value is not present in the cache then the
+   * default value is returned or if the client is not ready an error is thrown.
+   * @param {string} _key - Flag key
+   * @param {string} _defaultValue - Default value to return to the client if no flag is found
+   * @param _user - User to evaluate against
+   */
+  GetValue(_key: string, _defaultValue: any, _user?: Type.User): any {
+
+    if (!this.isReady) {
+      throw "Client is not ready! Try using FetchValue()";
+    }
+
+    this.user = _user;
+    
+    try {
+
+      const flags: any = this.service.GetFlagsLocal();
+
+      if (flags) {
+        const evaluator = new Evaluator();
+        const result = evaluator.Evaluate(_key, flags, _defaultValue, _user);
+        return result;
+      }
+
+      return _defaultValue;
+    }
+    catch (error) {
+      return _defaultValue;
     }
   }
 }

@@ -3,18 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <script type="text/javascript" src="../../library/floodgate.js"></script>
+    <script type="text/javascript" src="../../dist/floodgateio.js"></script>
     <script type="text/javascript">
       let config = {
-        refreshInterval: 5
+        refreshInterval: 10
       };
-      let client = floodgate.createClient("c3fc7952adc639aa5b23e4ea8a9b2d365d7efa2a116c77c8b949dae037e5");
+      let client = floodgate.createAutoUpdateClient("5bb795f32d41df152a0e285c45448d2cc9e7664c1839b2628f271cb1d41b", config);
 
-      const key = 'buy-now-colour';
-
-      client.GetValue(key, 'no-colour', (value) => {
-        console.log(`1) ${key} is ${value}`);
+      client.on('ready', function() {
+        // Once the client is ready you can evaluate flags directly
+        let key = 'buy-now-button-colour';
+        const colour = client.GetValue(key, 'default-colour');
+        document.write(`Flag "${key}" = "${colour}"`);
+        document.write('<hr>');
       });
+
+      // If you don't want to wait for the client ready event you can use FetchValue()
+      // FetchValue() will attempt to evaluate the flag from the cache and if not it will
+      // check for flag data on the remote server.
+      // It's recommended to wait for the client `ready` event.
+      let key = 'buy-now-button-colour';
+      client.FetchValue(key, 'default-colour', (value) => {
+        document.write(`Flag "${key}" = "${value}"`);
+        document.write('<hr>');
+      });
+
+      key = 'hello-message-enabled';
+      client.FetchValue(key, 'default-colour', (value) => {
+        document.write(`Flag "${key}" = "${value}"`);
+        document.write('<hr>');
+      });
+
     </script>
   </head>
   <body>

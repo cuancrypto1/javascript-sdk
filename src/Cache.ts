@@ -5,17 +5,17 @@ export interface ICache {
 }
 
 export class InMemoryCache implements ICache {
-  CACHE_TIME_KEY: string = "floodgate_cache_time";
+  // CACHE_TIME_KEY: string = "floodgate_cache_time";
 
-  refreshInterval: number = 120;
+  // refreshInterval: number = 120;
 
-  cacheTime: number = 0;
+  // cacheTime: number = 0;
 
   cache: { [key: string] : string; } = {};
 
-  constructor() {
+  // constructor() {
     
-  }
+  // }
 
   Get(key: string): any {
     return this.cache[key];

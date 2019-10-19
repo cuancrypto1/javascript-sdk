@@ -6,15 +6,11 @@ module.exports = {
 	entry: './src/index.ts',
 
 	output: {
-    // filename: '[name].[chunkhash].js',
-    filename: 'floodgate.js',
-    // path: path.resolve(__dirname, 'webpackdist')
-    path: path.resolve('./library'),
+    filename: 'floodgateio.js',
+    path: path.resolve('./dist'),
     library: 'floodgate'
-	},
-
-	// plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin()],
-
+  },
+  
 	module: {
 		rules: [
 			{

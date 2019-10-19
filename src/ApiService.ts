@@ -1,6 +1,7 @@
 import ky from "ky-universal";
+// import ky from "ky";
 import * as Types from "./Types";
-import * as Consts from "./Consts";
+// import * as Consts from "./Consts";
 
 interface IHttpResponse extends Response {
   parsedBody?: any;
@@ -24,6 +25,10 @@ export class ApiService {
     return this;
   }
 
+  public getHeaders() : string[][] {
+    return this._headers;
+  }
+
   get headers (): string[][] {
     return this._headers;
   }
@@ -44,7 +49,6 @@ export class ApiService {
         })
         .then((res: Response) => {
           response = res;
-          
           if (response.status === 200) {
             return res.json();
           }
@@ -55,7 +59,7 @@ export class ApiService {
           const error = new Error("Server response error");
           reject(error);
         })
-        .then((body: IHttpResponse) => {
+        .then((body: IHttpResponse) => { 
           response.parsedBody = body;
           resolve(response);
         })

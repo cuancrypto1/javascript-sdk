@@ -4,7 +4,7 @@ import { AutoUpdateConfig, IAutoUpdateConfig } from "./AutoUpdateConfig";
 export function createClient(_sdkKey: string) {
   let config: any = {
     sdkKey: _sdkKey,
-    refreshInterval: 5
+    refreshInterval: 60
   };
 
   return createAutoUpdateClient(_sdkKey, config);
