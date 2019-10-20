@@ -37,16 +37,6 @@ export default {
 
     const _this = this;
     client.on('ready', function() {
-      // client.FetchValue("hello-message-enabled", false, (value) => {
-      //   if (value == 'true') {
-      //     _this.message = 'flag "hello-message-enabled" is enabled';
-      //   }
-      // });
-
-      // client.FetchValue("buy-now-button-colour", 'blue', (value) => {
-      //   _this.buttonColour = value;
-      // });
-
       if (client.GetValue("hello-message-enabled", false) == 'true') {
         _this.message = 'flag "hello-message-enabled" is enabled';
       }
@@ -55,6 +45,22 @@ export default {
 
       _this.isLoaded = true;
     });
+
+    /**
+     * If you don't want to wait for the client ready event you can use the FetchValue() method
+     * FetchValue() will attempt to evaluate the flag from the cache and if not available it will
+     * check for flag data on the remote server.
+     * It's recommended to use the client `ready` event.
+     */
+    // client.FetchValue("hello-message-enabled", false, (value) => {
+    //   if (value == 'true') {
+    //     _this.message = 'flag "hello-message-enabled" is enabled';
+    //   }
+    // });
+
+    // client.FetchValue("buy-now-button-colour", 'blue', (value) => {
+    //   _this.buttonColour = value;
+    // });
   }
 }
 </script>

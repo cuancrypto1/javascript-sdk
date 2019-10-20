@@ -1,6 +1,6 @@
 {
   "name": "floodgate-javascript-sdk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "JavaScript SDK for floodgate.io",
   "main": "dist/index.js",
   "scripts": {
@@ -19,7 +19,9 @@
     "feature flag",
     "feature toggle",
     "soft launch",
-    "remote config"
+    "remote config",
+    "canary release",
+    "remote management"
   ],
   "author": "FloodGate",
   "license": "MIT",

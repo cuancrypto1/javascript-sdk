@@ -2,13 +2,14 @@ import * as Type from "./Types";
 import * as Const from "./Consts";
 // @ts-ignore <ts(7016)>
 import * as sha1 from "js-sha1";
+import { IUser, User } from "./User";
 
 export interface IEvaluator {
-  Evaluate(_key:string, _json: any, _defaultValue: any, _user?: Type.User): any
+  Evaluate(_key:string, _json: any, _defaultValue: any, _user?: IUser): any
 }
 
 export class Evaluator implements IEvaluator {
-  public Evaluate(_key:string, _json: any, _defaultValue: any, _user?: Type.User): any {
+  public Evaluate(_key:string, _json: any, _defaultValue: any, _user?: IUser): any {
     // @ts-ignore <ts(2339)>
     const flags = Object.values(_json);
 
@@ -33,20 +34,21 @@ export class Evaluator implements IEvaluator {
     if (!flag['is_targeting_enabled']) {
       // Evaluate rollouts
       if (flag['is_rollout']) {
-        return this.EvaluateRollout(_key, _user['id'], flag['rollouts'], _defaultValue);
+        // return this.EvaluateRollout(_key, _user['id'], flag['rollouts'], _defaultValue);
+        return this.EvaluateRollout(_key, _user.Id, flag['rollouts'], _defaultValue);
       }
 
       return flag['value'];
     }
 
     if (flag['is_targeting_enabled']) {
-      return this.EvaluateTargets(_key, flag['targets'], _user, _defaultValue);
+      return this.EvaluateTargets(_key, flag['targets'], _user, flag['value']);
     }
 
     return _defaultValue;
   }
 
-  private EvaluateTargets(_key:string, _targets: any, _user: Type.User, _defaultValue: any): any {
+  private EvaluateTargets(_key:string, _targets: any, _user: IUser, _defaultValue: any): any {
     // @ts-ignore <ts(2339)>
     const targets = Object.values(_targets);
 
@@ -66,7 +68,7 @@ export class Evaluator implements IEvaluator {
         if (target['is_rollout']) {
           return this.EvaluateRollout(
             _key,
-            _user['id'],
+            _user.Id,
             target['rollouts'],
             _defaultValue);
         }
@@ -78,7 +80,7 @@ export class Evaluator implements IEvaluator {
     return _defaultValue;
   }
 
-  private EvaluateRules(_rules: any, _user: Type.User): boolean {
+  private EvaluateRules(_rules: any, _user: IUser): boolean {
     // @ts-ignore <ts(2339)>
     const rules = Object.values(_rules);
 
@@ -151,13 +153,13 @@ export class Evaluator implements IEvaluator {
     return scale;
   }
 
-  private GetUserAttributeValue(_key: string, _user: Type.User): string | null {
+  private GetUserAttributeValue(_key: string, _user: IUser): string | null {
     if (_key.toLowerCase() === "email" ) {
-      return _user.email;
+      return _user.Email;
     }
 
-    if (_user.custom && _user.custom[_key.toLowerCase()].toLowerCase()) {
-      return _user.custom[_key];
+    if (_user.CustomAttributes && _user.CustomAttributes[_key.toLowerCase()].toLowerCase()) {
+      return _user.CustomAttributes[_key];
     }
 
     return null;

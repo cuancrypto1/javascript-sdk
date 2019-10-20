@@ -9,6 +9,16 @@ export class User {
   private email?: string;
   private customAttributes?: { [key: string] : string; } = {};
 
+  constructor(_id: string, _email?: string, _customAttributes?: { [key: string] : string; }) {
+    if (_id == undefined) {
+      throw "User must be created with a unique id";
+    }
+    
+    this.id = _id;
+    this.email = _email;
+    this.customAttributes = _customAttributes
+  }
+
   get Id() {
     return this.id;
   }
@@ -23,11 +33,5 @@ export class User {
 
   get CustomAttributes() {
     return this.customAttributes;
-  }
-
-  constructor(_id: string, _email?: string, _customAttributes?: { [key: string] : string; }) {
-    this.id = _id;
-    this.email = _email;
-    this.customAttributes = _customAttributes
   }
 }

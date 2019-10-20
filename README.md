@@ -6,9 +6,7 @@ This is the JavaScript SDK for [Floodgate](https://floodgate.io), a feature roll
 
 ## Compatibility
 
-This SDK is designed to work with both Node.js and browser based environments.
-
-The Floodgate JavaScript SDK supports Node.js version 10+
+This SDK is designed to work with client (browser) based environments.
 
 ## Installing
 
@@ -26,9 +24,13 @@ Below is a simple example of how you can use the JavaScript SDK to check on the 
 import * as floodgate from "floodgate-javascript-sdk";
 
 let client = floodgate.createClient("[YOUR ENVIRONMENT SDK KEY]");
-client.GetValue("my-feature-flag", false, (value) => {
-  if (value) {
-    // Do something new and exciting
+
+client.on('ready', function() {
+  // Once the client is ready you can evaluate flags directly
+  const colour = client.GetValue('my-feature-flag', 'default-colour');
+  
+  if (value == 'true') {
+    // Do something new and awesome
   }
   else {
     // Do whatever I usually do
@@ -56,6 +58,7 @@ Floodgate has currently developed following SDKs.
 
 * .Net Framework [GitHub](https://github.com/floodgate-io/dotnet-framework-sdk)
 * JavaScript [GitHub](https://github.com/floodgate-io/javascript-sdk)
+* PHP [GitHub](https://github.com/floodgate-io/php-sdk)
 
 ## Contributing a New SDK
 

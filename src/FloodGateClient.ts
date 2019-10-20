@@ -4,11 +4,12 @@ import { AutoUpdateService, IAutoUpdateService } from "./AutoUpdateService";
 import { Evaluator } from "./Evaluator";
 import * as Type from "./Types";
 import * as Const from "./Consts";
+import { IUser, User } from "./User";
 
 export interface IFloodGateClient {
   IsReady(): boolean;
-  FetchValue(key: string, defaultValue: any, callback: (value: any) => void, user?: Type.User): any;
-  GetValue(key: string, defaultValue: any, user?: Type.User): any;
+  FetchValue(key: string, defaultValue: any, callback: (value: any) => void, user?: IUser): any;
+  GetValue(key: string, defaultValue: any, user?: IUser): any;
 }
 
 export class FloodGateClient extends EventEmitter implements IFloodGateClient {
@@ -17,7 +18,7 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
 
   config: IAutoUpdateConfig;
   service: AutoUpdateService;
-  user?: Type.User;
+  user?: IUser;
 
   constructor(_config: IAutoUpdateConfig) {
     super();
@@ -52,7 +53,7 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
    * @param callback - Client callback method
    * @param _user - User to evaluate against
    */
-  FetchValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: Type.User): any {
+  FetchValue(_key: string, _defaultValue: any, callback: (value: any) => void, _user?: IUser): any {
     this.user = _user;
     
     try {
@@ -83,7 +84,7 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
    * @param {string} _defaultValue - Default value to return to the client if no flag is found
    * @param _user - User to evaluate against
    */
-  GetValue(_key: string, _defaultValue: any, _user?: Type.User): any {
+  GetValue(_key: string, _defaultValue: any, _user?: IUser): any {
 
     if (!this.isReady) {
       throw "Client is not ready! Try using FetchValue()";
@@ -92,7 +93,6 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
     this.user = _user;
     
     try {
-
       const flags: any = this.service.GetFlagsLocal();
 
       if (flags) {
@@ -100,7 +100,6 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
         const result = evaluator.Evaluate(_key, flags, _defaultValue, _user);
         return result;
       }
-
       return _defaultValue;
     }
     catch (error) {
