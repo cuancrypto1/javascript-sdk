@@ -7,7 +7,7 @@ module.exports = {
 
 	output: {
     filename: 'floodgateio.js',
-    path: path.resolve('./dist'),
+    path: path.resolve('./lib'),
     library: 'floodgate'
   },
   
@@ -18,7 +18,33 @@ module.exports = {
 				loader: 'ts-loader',
 				include: [path.resolve(__dirname, 'src')],
 				exclude: [/node_modules/]
-			}
+      },
+      // // {
+      // //   test: /.(js|jsx)?$/,
+      // //   loader: 'babel-loader',
+      // //   exclude: [path.resolve(__dirname, 'src')],
+      // //   // exclude: [/node_modules/, path.resolve(__dirname, 'src')],
+      // //   // include: [/node_modules\\ky/]
+      // //   // options: {
+      // //   //   plugins: ['@babel/plugin-proposal-object-rest-spread']
+      // //   // }
+      // // },
+      /**
+       * 
+       * include: [
+          path.resolve(__dirname, 'app/styles'),
+          path.resolve(__dirname, 'vendor/styles')
+        ]
+       */
+      // {
+      //   // test: /\.jsx?$/,
+      //   test: /.(js|jsx)?$/,
+      //   loader: 'babel-loader',
+      //   // exclude: [/node_modules/],
+      //   options: {
+      //     plugins: ['@babel/plugin-proposal-object-rest-spread']
+      //   }
+      // },
 		]
 	},
 

@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Floodgate Plain JavaScript Example</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/floodgate-javascript-sdk@latest/dist/floodgateio.js"></script>
+    <!-- <script type="text/javascript" src="../../lib/floodgateio.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/floodgate-javascript-sdk@1.0.8/lib/floodgateio.js"></script>
     <script type="text/javascript">
       const client = floodgate.createClient("5bb795f32d41df152a0e285c45448d2cc9e7664c1839b2628f271cb1d41b");
 
       const customAttributes = {
-        country: "US",
+        country: "UK",
         name: "Peter Parker"
       };
       const user = floodgate.createUser("unique-user-id", "spiderman@marvel.com", customAttributes);
@@ -17,7 +18,7 @@
         // Once the client is ready you can evaluate flags directly
         let key = 'buy-now-button-colour';
         const colour = client.GetValue(key, 'purple', user);
-        console.log(`Flag "${key}" = "${colour}"`);
+        document.getElementById('box').style.backgroundColor = colour;
       });
 
       /**
@@ -28,18 +29,23 @@
        */
       // let key = 'buy-now-button-colour';
       // client.FetchValue(key, 'default-colour', (value) => {
-      //   console.log(`Flag "${key}" = "${value}"`);
+      //   document.getElementById('box').style.backgroundColor = colour;
       // });
-
-      // key = 'hello-message-enabled';
-      // client.FetchValue(key, 'default-colour', (value) => {
-      //   console.log(`Flag "${key}" = "${value}"`);
-      // });
-
     </script>
+    <style>
+      #box {
+        width: 400px;
+        height: 60px;
+        margin: 0 auto;
+        background-color: #cacaca;
+        text-align: center;
+        line-height: 60px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <h2><a href="https://floodgate.io" target="_blank">Floodgate</a> Plain JavaScript Example</h2>
-    <p>Review the page console log to see results.</p>
+    <div id="box">The colour of this box should not be grey!</div>
   </body>
 </html>

@@ -6,7 +6,13 @@ This is the JavaScript SDK for [Floodgate](https://floodgate.io), a feature roll
 
 ## Compatibility
 
-This SDK is designed to work with client (browser) based environments.
+The JavaScript SDK is designed to work with browser based JavaScript environments. It is compatible with the following browsers:
+- Chrome
+- Firefox
+- Edge
+- Safari
+
+> The JavaScript SDK is not currently compatible with IE
 
 ## Installing
 

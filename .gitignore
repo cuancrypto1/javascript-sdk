@@ -1,10 +1,9 @@
 *.code-workspace
 package-lock.json
 *.backup
-build.bat
 
 [Dd]ist
-[Ll]ibrary
+[Ll]ib
 
 # Logs
 logs

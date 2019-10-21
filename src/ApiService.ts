@@ -1,7 +1,4 @@
-import ky from "ky-universal";
-// import ky from "ky";
 import * as Types from "./Types";
-// import * as Consts from "./Consts";
 
 interface IHttpResponse extends Response {
   parsedBody?: any;
@@ -43,8 +40,8 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       try {
 
-        ky(url, {
-          timeout: 10000,
+        fetch(url, {
+          // timeout: 10000,
           headers: this._headers
         })
         .then((res: Response) => {
