@@ -1,6 +1,6 @@
 {
   "name": "floodgate-javascript-sdk",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "JavaScript SDK for floodgate.io",
   "main": "dist/index.js",
   "scripts": {
