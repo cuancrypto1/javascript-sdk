@@ -1,6 +1,6 @@
 {
   "name": "floodgate-javascript-sdk",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "JavaScript SDK for floodgate.io",
   "main": "dist/index.js",
   "scripts": {
@@ -33,16 +33,12 @@
     "html-webpack-plugin": "^3.2.0",
     "ts-loader": "^6.2.0",
     "typescript": "^3.6.4",
-    "webpack": "^4.41.1",
+    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
     "events": "^3.0.0",
     "js-sha1": "^0.6.0"
-  },
-  "bundleDependencies": [
-    "js-sha1",
-    "events"
-  ]
+  }
 }
