@@ -6,8 +6,8 @@ module.exports = {
 	entry: './src/index.ts',
 
 	output: {
-    filename: 'floodgateio.js',
-    path: path.resolve('./dist/lib'),
+    filename: 'floodgate.min.js',
+    path: path.resolve('./dist'),
     library: 'floodgate'
   },
   
@@ -20,16 +20,12 @@ module.exports = {
 				exclude: [/node_modules/]
       }
 		]
-	},
-
-	optimization: {
-		
-	},
-
+  },
+  
 	devServer: {
 		open: true
-	},
-
+  },
+  
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js']
 	}
