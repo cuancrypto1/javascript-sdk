@@ -7,7 +7,7 @@ module.exports = {
 
 	output: {
     filename: 'floodgateio.js',
-    path: path.resolve('./lib'),
+    path: path.resolve('./dist/lib'),
     library: 'floodgate'
   },
   
