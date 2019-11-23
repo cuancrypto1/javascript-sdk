@@ -7,8 +7,14 @@
 ```
 npm version <patch | minor | major>
 ```
+3. Build package
 
-3. Publish to npmjs.com
+```
+npm run build
+npm run compile
+```
+
+3. Publish package to npmjs.com
 
 ```
 npm publish --access public

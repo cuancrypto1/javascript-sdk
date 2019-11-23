@@ -1,10 +1,15 @@
 import * as Cache from "./Cache";
+import ILogger from "./ILogger";
+import DefaultLogger from "./DefaultLogger";
+import ConsoleLogger from "./ConsoleLogger";
 
 export interface IConfigBase {
   sdkKey: string;
   baseUrl?: string;
   configUrl?: string;
   cache?: Cache.ICache;
+  logger: ILogger;
+  consoleLog: boolean;
   buildUrl(): string;
 }
 
@@ -12,6 +17,10 @@ export abstract class ConfigBase implements IConfigBase {
   public sdkKey: string;
 
   public cache?: Cache.ICache;
+
+  public logger: ILogger;
+
+  public consoleLog: boolean = false;
 
   public readonly baseUrl: string = "https://cdn.floodgate.io";
 
@@ -26,11 +35,17 @@ export abstract class ConfigBase implements IConfigBase {
 
     this.sdkKey = _sdkKey;
     this.configUrl = this.baseUrl;
-
+    this.logger = new DefaultLogger();
+    
     if (_options) {
       if (!_options.cache) {
         // this.cache = new Cache.InMemoryCache();
         this.cache = new Cache.LocalStorageCache();
+      }
+
+      if (_options.consoleLog) {
+        this.logger = new ConsoleLogger();
+        this.logger.Log('Enabling console logging');
       }
 
       if (_options.configUrl) {

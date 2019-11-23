@@ -6,13 +6,18 @@ import * as Type from "./Types";
 import * as Const from "./Consts";
 import { IUser, User } from "./User";
 
+const pckg = require('../package.json');
+
 export interface IFloodGateClient {
+  Version: string;
   IsReady(): boolean;
   FetchValue(key: string, defaultValue: any, callback: (value: any) => void, user?: IUser): any;
   GetValue(key: string, defaultValue: any, user?: IUser): any;
 }
 
 export class FloodGateClient extends EventEmitter implements IFloodGateClient {
+
+  public Version: string;
 
   private isReady = false;
 
@@ -24,12 +29,17 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
     super();
 
     const self = this;
-
+    
     this.config = _config;
+
+    this.Version = pckg.version;
+    this.config.logger.Log(`SDK Version = ${this.Version}`);
+
     if (_config && _config instanceof AutoUpdateConfig) {
       this.service = new AutoUpdateService(_config);
+      this.config.logger.Log(`Setting service to AutoUpdateService`);
     }
-    // additional services...
+    // elseif additional services...
 
     else {
       throw new Error("Invalid service");
@@ -38,6 +48,7 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
     this.service.on('ready', function() {
       self.isReady = true;
       self.emit(Const.EVENT_SDK_READY);
+      self.config.logger.Log(`FloodGateClient() Ready`);
     }).Start();
   }
 
