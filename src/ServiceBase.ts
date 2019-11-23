@@ -37,7 +37,7 @@ export abstract class ServiceBase extends EventEmitter {
       },
       {
         key: "FloodGate-SDK-Agent",
-        value: `js-v${Consts.SDK_VERSION}`
+        value: `js-v${this.config.Version}`
       }
     ];
 

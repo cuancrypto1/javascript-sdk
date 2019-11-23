@@ -1,7 +1,4 @@
-export const ENV: string = "production";
-export const SDK_VERSION: string = "1.0.7";
 export const CACHE_ETAG: string = "etag";
-export const CACHE_LASTMODIFIED: string = "lastm";
 export const COMPARATOR_EQUAL_TO: number = 1;
 export const COMPARATOR_NOT_EQUAL_TO: number = 2;
 export const COMPARATOR_GREATOR: number = 3;

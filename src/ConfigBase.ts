@@ -3,6 +3,8 @@ import ILogger from "./ILogger";
 import DefaultLogger from "./DefaultLogger";
 import ConsoleLogger from "./ConsoleLogger";
 
+const pckg = require('../package.json');
+
 export interface IConfigBase {
   sdkKey: string;
   baseUrl?: string;
@@ -10,11 +12,14 @@ export interface IConfigBase {
   cache?: Cache.ICache;
   logger: ILogger;
   consoleLog: boolean;
+  Version: string;
   buildUrl(): string;
 }
 
 export abstract class ConfigBase implements IConfigBase {
   public sdkKey: string;
+
+  public Version: string;
 
   public cache?: Cache.ICache;
 
@@ -36,6 +41,9 @@ export abstract class ConfigBase implements IConfigBase {
     this.sdkKey = _sdkKey;
     this.configUrl = this.baseUrl;
     this.logger = new DefaultLogger();
+
+    this.Version = pckg.version;
+    
     
     if (_options) {
       if (!_options.cache) {
@@ -52,6 +60,8 @@ export abstract class ConfigBase implements IConfigBase {
         this.configUrl = _options.configUrl;
       }
     }
+
+    this.logger.Log(`SDK Version = ${this.Version}`);
   }
 
   public buildUrl(): string {
