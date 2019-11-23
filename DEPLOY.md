@@ -14,7 +14,7 @@ npm run build
 npm run compile
 ```
 
-3. Publish package to npmjs.com
+4. Publish package to npmjs.com
 
 ```
 npm publish --access public
