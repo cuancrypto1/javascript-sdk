@@ -29,18 +29,13 @@ Below is a simple example of how you can use the JavaScript SDK to check on the 
 ```javascript
 import * as floodgate from "floodgate-javascript-sdk";
 
-let client = floodgate.createClient("[YOUR ENVIRONMENT SDK KEY]");
+const client = floodgate.createClient("[YOUR ENVIRONMENT SDK KEY]");
 
 client.on('ready', function() {
   // Once the client is ready you can evaluate flags directly
-  const colour = client.GetValue('my-feature-flag', 'default-colour');
-  
-  if (value == 'true') {
-    // Do something new and awesome
-  }
-  else {
-    // Do whatever I usually do
-  }
+  const colour = client.GetValue('my-feature-flag', 'grey');
+
+  document.getElementById('box').style.backgroundColor = colour;
 });
 ```
 
@@ -64,6 +59,7 @@ Floodgate has currently developed following SDKs.
 
 * .Net Framework [GitHub](https://github.com/floodgate-io/dotnet-framework-sdk)
 * JavaScript [GitHub](https://github.com/floodgate-io/javascript-sdk)
+* Node [GitHub](https://github.com/floodgate-io/node-sdk)
 * PHP [GitHub](https://github.com/floodgate-io/php-sdk)
 
 ## Contributing a New SDK
