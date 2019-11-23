@@ -56,7 +56,7 @@ export class ApiService {
           const error = new Error("Server response error");
           reject(error);
         })
-        .then((body: IHttpResponse) => { 
+        .then((body: IHttpResponse) => {
           response.parsedBody = body;
           resolve(response);
         })

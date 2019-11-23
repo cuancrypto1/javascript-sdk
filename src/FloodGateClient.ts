@@ -94,7 +94,7 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
     
     try {
       const flags: any = this.service.GetFlagsLocal();
-
+      
       if (flags) {
         const evaluator = new Evaluator();
         const result = evaluator.Evaluate(_key, flags, _defaultValue, _user);

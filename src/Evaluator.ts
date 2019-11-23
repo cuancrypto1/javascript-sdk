@@ -22,41 +22,38 @@ export class Evaluator implements IEvaluator {
     }
 
     if (_user === undefined || _user === null) {
-      // If flag is rollout but no user is present to evaluate,
-      // return the default value
-      if (flag['is_rollout']) {
-        return _defaultValue;
-      }
-
+      // If user is null then cannot evaluate targets or rollouts, return the flag default value
       return flag['value'];
     }
 
     if (!flag['is_targeting_enabled']) {
       // Evaluate rollouts
       if (flag['is_rollout']) {
-        // return this.EvaluateRollout(_key, _user['id'], flag['rollouts'], _defaultValue);
-        return this.EvaluateRollout(_key, _user.Id, flag['rollouts'], _defaultValue);
+        return this.EvaluateRollout(_key, _user.Id, flag['rollouts'], flag['value']);
       }
 
       return flag['value'];
     }
 
     if (flag['is_targeting_enabled']) {
-      return this.EvaluateTargets(_key, flag['targets'], _user, flag['value']);
+      // return this.EvaluateTargets(_key, flag['targets'], _user, flag['value']);
+      return this.EvaluateTargets(_key, flag, _user, flag['value']);
     }
 
     return _defaultValue;
   }
 
-  private EvaluateTargets(_key:string, _targets: any, _user: IUser, _defaultValue: any): any {
+  private EvaluateTargets(_key:string, _flag: any, _user: IUser, _defaultValue: any): any {
     // @ts-ignore <ts(2339)>
-    const targets = Object.values(_targets);
+    const targets = Object.values(_flag['targets']);
 
     let value: any = _defaultValue;
     let ruleResult: boolean = false;
-    let evaluates: boolean = true;
+    let evaluates: boolean;
     let target: any;
     for (target of targets) {
+      evaluates = true;
+
       value = target['value'];
 
       if (target['rules']) {
@@ -77,6 +74,14 @@ export class Evaluator implements IEvaluator {
       }
     }
 
+    if (_flag['is_rollout']) {
+      return this.EvaluateRollout(
+        _key,
+        _user.Id,
+        _flag['rollouts'],
+        _defaultValue);
+    }
+
     return _defaultValue;
   }
 
@@ -89,14 +94,18 @@ export class Evaluator implements IEvaluator {
 
     for (rule of rules) {
       const userAttributeValue = this.GetUserAttributeValue(rule['attribute'], _user);
-      if (!userAttributeValue) continue;
+      
+      if (!userAttributeValue) {
+        result = false;
+        continue;
+      }
       
       const comparator = rule['comparator'];
       const values = rule['values'];
 
       switch (comparator) {
         case Const.COMPARATOR_EQUAL_TO:
-          result = values.includes(userAttributeValue);
+            result = values.includes(userAttributeValue);
           break;
         case Const.COMPARATOR_NOT_EQUAL_TO:
             result = !values.includes(userAttributeValue);
@@ -107,15 +116,15 @@ export class Evaluator implements IEvaluator {
             if (result) break;
           }
           break;
-          case Const.COMPARATOR_NOT_CONTAIN:
-            let valid = true;
-            for (const value of values) {
-              result = !userAttributeValue.includes(value);
-              valid = result && valid;
-            }
+        case Const.COMPARATOR_NOT_CONTAIN:
+          let valid = true;
+          for (const value of values) {
+            result = !userAttributeValue.includes(value);
+            valid = result && valid;
+          }
 
-            result = valid;
-            break;
+          result = valid;
+          break;
         default:
           result = false;
           break;

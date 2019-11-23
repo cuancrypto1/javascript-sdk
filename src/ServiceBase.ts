@@ -58,27 +58,23 @@ export abstract class ServiceBase extends EventEmitter {
 
     api.get(url)
     .then((response) => {
-      // if (response.status == 304) { // Read cache
-      //   const json: any = this.cache.Get(this.config.sdkKey);
-      //   callback(json);
-      //   return;
-      // }
-
       const responseHeaders = response.headers;
 
       etag = responseHeaders.get("ETag");
       if (typeof(etag) === "string") {
         etag = etag.replace(/['"]+/g, '');
       }
-      
-      // Check current etag vs cached etag, return cached data if matched
-      if (etag == this.cache.Get(etagCacheKey)) {
-        const json: any = this.cache.Get(this.config.sdkKey);
-        callback(json);
-        return;
-      }
 
-      this.cache.Set(etagCacheKey, etag);
+      // Check current etag vs cached etag, return cached data if matched
+      if ((etag !== null && etag !== undefined)) {
+        if (etag == this.cache.Get(etagCacheKey)) {
+          const json: any = this.cache.Get(this.config.sdkKey);
+          callback(json);
+          return;
+        }
+  
+        this.cache.Set(etagCacheKey, etag);
+      }
 
       const json = response.parsedBody;
 
