@@ -7,12 +7,19 @@ const pckg = require('../package.json');
 
 export interface IConfigBase {
   sdkKey: string;
+
   baseUrl?: string;
+
   configUrl?: string;
+
   cache?: Cache.ICache;
+
   logger: ILogger;
+
   consoleLog: boolean;
+
   Version: string;
+
   buildUrl(): string;
 }
 
@@ -43,8 +50,7 @@ export abstract class ConfigBase implements IConfigBase {
     this.logger = new DefaultLogger();
 
     this.Version = pckg.version;
-    
-    
+
     if (_options) {
       if (!_options.cache) {
         // this.cache = new Cache.InMemoryCache();
@@ -65,7 +71,13 @@ export abstract class ConfigBase implements IConfigBase {
   }
 
   public buildUrl(): string {
-    const url = `${this.configUrl}/environment-files/${this.sdkKey}/${this.API_VERSION}/flags-config.json`;
+    let url = `${this.baseUrl}/environment-files/${this.sdkKey}/${this.API_VERSION}/flags-config.json`;
+
+    if (this.configUrl) {
+      url = this.configUrl;
+    }
+
+    this.logger.Log(`url = ${url}`);
     return url;
   }
 }

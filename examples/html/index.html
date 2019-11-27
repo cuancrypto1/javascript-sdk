@@ -9,17 +9,17 @@
       const client = floodgate.createClient("[enter-sdk-key]");
       
       // const config = {
-      //   configUrl: "https://my-cdn.com/",
+      //   // configUrl: "https://my-cdn.com/",
       //   consoleLog: true,
       //   refreshInterval: 10
       // };
       // const client = floodgate.createAutoUpdateClient("[enter-sdk-key]", config);
       
-      const customAttributes = {
-        country: "UK",
-        name: "Peter Parker"
-      };
-      const user = floodgate.createUser("unique-user-id", "spiderman@marvel.com", customAttributes);
+      // const customAttributes = {
+      //   country: "UK",
+      //   name: "Peter Parker"
+      // };
+      // const user = floodgate.createUser("unique-user-id", "spiderman@marvel.com", customAttributes);
 
       client.on('ready', function() {
         // Once the client is ready you can evaluate flags directly

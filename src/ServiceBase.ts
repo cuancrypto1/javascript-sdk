@@ -14,6 +14,7 @@ export abstract class ServiceBase extends EventEmitter {
 
     this.config = _config;
 
+    // TODO: review this as it may not be needed
     this.cache = new InMemoryCache();
     if (_config.cache) {
       this.cache = _config.cache;
