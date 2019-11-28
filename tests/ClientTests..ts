@@ -14,8 +14,7 @@ describe('Test Floodgate Client Object', () => {
     });
 });
 
-describe('Test Floodgate Client Object', () => {
-  // const sdkKey = '927f4418d15e9a81c834dcfe1c9f3d91d994cf9aff9813fb75b94f2e44f5';
+describe('Test Floodgate Client Evaluations', () => {
   const url = {
     flags: 'https://s3-ap-southeast-1.amazonaws.com/cdn.floodgate.io/tests/test-flags.json',
     rollouts: 'https://s3-ap-southeast-1.amazonaws.com/cdn.floodgate.io/tests/test-flags-rollout.json',
@@ -127,22 +126,29 @@ describe('Test Floodgate Client Object', () => {
   });
 
   context('with rollouts', () => {
-
     const variations = [
-      { id: 'd2405fc0-c9cd-49e7-a07e-bf244d6d360b', expected: 'blue' },
-      { id: '4d5817c5-4450-4cd4-b035-e24c2b72d50a', expected: 'purple' },
-      { id: '1dd97efd-62eb-418c-b2fe-11dd0ca188e0', expected: 'brown' }, // red
-      { id: 'cb3c2d9c-9908-4f80-b7a4-c3cf2aa4d134', expected: 'pink' }, // yellow
-      { id: 'da50fc56-16b5-4fbd-960a-89405968e881', expected: 'blue' }, // green
-      { id: '1527d16f-f287-49ba-bc61-bf86d39a2ab2', expected: 'red' }, // brown
-      { id: '68450bec-70c1-4b49-91ba-5c756b2b3191', expected: 'orange' }, // pink
-      { id: '2323e039-5f77-4391-b478-0b04f6541094', expected: 'yellow' } // orange
+      { id: 'd2405fc0-c9cd-49e7-a07e-bf244d6d360b', expected: 'blue', config: url.rollouts },
+      { id: '4d5817c5-4450-4cd4-b035-e24c2b72d50a', expected: 'purple', config: url.rollouts },
+      { id: '1dd97efd-62eb-418c-b2fe-11dd0ca188e0', expected: 'brown', config: url.rollouts }, // red
+      { id: 'cb3c2d9c-9908-4f80-b7a4-c3cf2aa4d134', expected: 'pink', config: url.rollouts }, // yellow
+      { id: 'da50fc56-16b5-4fbd-960a-89405968e881', expected: 'blue', config: url.rollouts }, // green
+      { id: '1527d16f-f287-49ba-bc61-bf86d39a2ab2', expected: 'red', config: url.rollouts }, // brown
+      { id: '68450bec-70c1-4b49-91ba-5c756b2b3191', expected: 'orange', config: url.rollouts }, // pink
+      { id: '2323e039-5f77-4391-b478-0b04f6541094', expected: 'yellow', config: url.rollouts }, // orange
+      { id: 'd2405fc0-c9cd-49e7-a07e-bf244d6d360b', expected: 'blue', config: url.all },
+      { id: '4d5817c5-4450-4cd4-b035-e24c2b72d50a', expected: 'purple', config: url.all },
+      { id: '1dd97efd-62eb-418c-b2fe-11dd0ca188e0', expected: 'brown', config: url.all }, // red
+      { id: 'cb3c2d9c-9908-4f80-b7a4-c3cf2aa4d134', expected: 'pink', config: url.all }, // yellow
+      { id: 'da50fc56-16b5-4fbd-960a-89405968e881', expected: 'blue', config: url.all }, // green
+      { id: '1527d16f-f287-49ba-bc61-bf86d39a2ab2', expected: 'red', config: url.all }, // brown
+      { id: '68450bec-70c1-4b49-91ba-5c756b2b3191', expected: 'orange', config: url.all }, // pink
+      { id: '2323e039-5f77-4391-b478-0b04f6541094', expected: 'yellow', config: url.all } // orange
     ];
 
     for (const variation of variations) {
       it(`should return ${variation.expected}`, (done) => {
         const config = {
-          configUrl: url.rollouts,
+          configUrl: variation.config,
           consoleLog: false,
           refreshInterval: 3600
         };
@@ -161,46 +167,5 @@ describe('Test Floodgate Client Object', () => {
         });
       });
     }
-
-
-
-
-    // it('should return blue', (done) => {
-    //   const config = {
-    //     configUrl: url.rollouts,
-    //     consoleLog: false,
-    //     refreshInterval: 3600
-    //   };
-
-    //   const client = floodgateClient.createAutoUpdateClient("invalid", config);
-
-    //   const user = floodgateClient.createUser("d2405fc0-c9cd-49e7-a07e-bf244d6d360b");
-
-    //   client.on('ready', function() {
-    //     let key = 'background-colour';
-    //     const colour = client.GetValue(key, 'grey', user);
-    //     expect(colour).to.equal('blue'); 
-    //     done();
-    //   });
-    // });
-
-    // it('should return purple', (done) => {
-    //   const config = {
-    //     configUrl: url.rollouts,
-    //     consoleLog: false,
-    //     refreshInterval: 3600
-    //   };
-
-    //   const client = floodgateClient.createAutoUpdateClient("invalid", config);
-
-    //   const user = floodgateClient.createUser("4d5817c5-4450-4cd4-b035-e24c2b72d50a");
-
-    //   client.on('ready', function() {
-    //     let key = 'background-colour';
-    //     const colour = client.GetValue(key, 'grey', user);
-    //     expect(colour).to.equal('purple'); 
-    //     done();
-    //   });
-    // });
   });
 });
