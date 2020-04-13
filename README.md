@@ -1,4 +1,4 @@
-# FloodGate SDK for JavaScript
+# Floodgate SDK for JavaScript
 
 ## Overview
 
