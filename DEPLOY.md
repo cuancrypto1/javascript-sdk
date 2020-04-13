@@ -2,7 +2,7 @@
 
 1. Run tests
 
-```
+```bash
 npm run test
 ```
 
@@ -10,19 +10,19 @@ npm run test
 
 3. Create new package version number
 
-```
+```bash
 npm version <patch | minor | major>
 ```
 
 4. Build package
 
-```
+```bash
 npm run build
 npm run compile
 ```
 
 5. Publish package to npmjs.com
 
-```
+```bash
 npm publish --access public
 ```
