@@ -4,6 +4,7 @@
   "description": "JavaScript SDK for floodgate.io",
   "main": "dist/index.js",
   "scripts": {
+    "debug": "karma start --no-single-run",
     "build": "tsc",
     "compile": "webpack",
     "test": "karma start",

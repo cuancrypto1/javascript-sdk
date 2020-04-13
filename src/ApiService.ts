@@ -1,4 +1,5 @@
 import * as Types from "./Types";
+import ILogger from "./ILogger";
 
 interface IHttpResponse extends Response {
   parsedBody?: any;
@@ -7,6 +8,12 @@ interface IHttpResponse extends Response {
 export class ApiService {
 
   private _headers: string[][] = [];
+
+  private logger: ILogger;
+
+  constructor(_logger: ILogger) {
+    this.logger = _logger;
+  }
 
   public setHeaders (headers: Types.KeyValue<string, string>[]): ApiService {
     for (const i in headers) {
@@ -45,6 +52,8 @@ export class ApiService {
           headers: this._headers
         })
         .then((res: Response) => {
+          this.logger.Log(`Received CDN Response`);
+
           response = res;
           if (response.status === 200) {
             return res.json();
@@ -57,15 +66,21 @@ export class ApiService {
           reject(error);
         })
         .then((body: IHttpResponse) => {
+          this.logger.Log(`Parsing CDN Body Response`);
+
           response.parsedBody = body;
           resolve(response);
         })
         .catch((error: any) => {
+          this.logger.Log(`CDN Response Error`);
+          this.logger.Log(error);
           reject(error);
         });
 
       }
       catch (error) {
+        this.logger.Log(`API Error`);
+        this.logger.Log(error);
         reject(error);
       }
     });

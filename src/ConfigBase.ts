@@ -51,13 +51,9 @@ export abstract class ConfigBase implements IConfigBase {
 
     this.sdkKey = _sdkKey;
 
-    this.configUrl = this.baseUrl;
-
     this.logger = new DefaultLogger();
 
     this.Version = pckg.version;
-
-    
 
     if (_options) {
       if (!_options.cache) {

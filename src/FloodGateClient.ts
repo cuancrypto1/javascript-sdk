@@ -2,7 +2,6 @@ import { EventEmitter } from "events";
 import { AutoUpdateConfig, IAutoUpdateConfig } from "./AutoUpdateConfig";
 import { AutoUpdateService, IAutoUpdateService } from "./AutoUpdateService";
 import { Evaluator } from "./Evaluator";
-import * as Type from "./Types";
 import * as Const from "./Consts";
 import { IUser, User } from "./User";
 

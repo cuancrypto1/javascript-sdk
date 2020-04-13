@@ -30,25 +30,25 @@ export abstract class ServiceBase extends EventEmitter {
    */
   public FetchRemote(callback: (value: any) => void): void {
     const requestHeaders: Types.KeyValue<string, string>[] = [
+      // {
+      //   key: "Accept",
+      //   value: "application/json"
+      // },
+      // {
+      //   key: "Content-Type",
+      //   value: "application/json"
+      // },
       {
-        key: "Accept",
-        value: "application/json"
-      },
-      {
-        key: "Content-Type",
-        value: "application/json"
-      },
-      {
-        key: "FloodGate-SDK-Agent",
+        key: "X-FloodGate-SDK-Agent",
         value: `JS`
       },
       {
-        key: "FloodGate-SDK-Version",
+        key: "X-FloodGate-SDK-Version",
         value: this.config.Version
       }
     ];
 
-    const api = new ApiService().setHeaders(requestHeaders);
+    const api = new ApiService(this.config.logger).setHeaders(requestHeaders);
   
     const url = this.config.buildUrl();
 

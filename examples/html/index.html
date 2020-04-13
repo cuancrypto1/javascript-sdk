@@ -3,29 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Floodgate Plain JavaScript Example</title>
-    <!-- <script type="text/javascript" src="../../dist/floodgate.min.js"></script> -->
+    <!-- <script type="text/javascript" src="../../dist/floodgate.min.js?ver=1"></script> -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/floodgate-javascript-sdk@latest/dist/floodgate.min.js"></script>
     <script type="text/javascript">
-      const client = floodgate.createClient("[enter-sdk-key]");
-      
-      // const config = {
-      //   // configUrl: "https://my-cdn.com/",
-      //   consoleLog: true,
-      //   refreshInterval: 10
-      // };
-      // const client = floodgate.createAutoUpdateClient("[enter-sdk-key]", config);
-      
-      // const customAttributes = {
-      //   country: "UK",
-      //   name: "Peter Parker"
-      // };
-      // const user = floodgate.createUser("unique-user-id", "spiderman@marvel.com", customAttributes);
+      const config = {
+        consoleLog: true,
+        refreshInterval: 10
+      };
+      const client = floodgate.createClient("2d414c28563b9788a47e5062fe9a57fd86efe69c28a31ea4aaada43cac87", config);
 
       client.on('ready', function() {
         // Once the client is ready you can evaluate flags directly
-        let key = 'background-colour';
-        const colour = client.GetValue(key, 'grey', user);
+        let key = 'button-colour';
+        const colour = client.GetValue(key, 'grey');
         document.getElementById('box').style.backgroundColor = colour;
+
+        // Call more client.GetValue(...) as needed
       });
 
       /**
@@ -34,8 +27,8 @@
        * check for flag data on the remote server.
        * It's recommended to use the client `ready` event.
        */
-      // let key = 'buy-now-button-colour';
-      // client.FetchValue(key, 'default-colour', (value) => {
+      // let key = 'button-colour';
+      // client.FetchValue(key, 'pink', (colour) => {
       //   document.getElementById('box').style.backgroundColor = colour;
       // });
     </script>

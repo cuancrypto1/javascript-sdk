@@ -10,11 +10,11 @@ module.exports = function (config) {
       "**/*.ts": ["karma-typescript"]
     },
     reporters: ['progress'],
-    // port: 9876,
-    // colors: true,
+    port: 9876,
+    colors: true,
     // logLevel: config.LOG_INFO,
     // browsers: ['Edge'],
-    browsers: ['Chrome'],
+    // browsers: ['Chrome'],
     // autoWatch: false,
     // concurrency: Infinity,
     // customLaunchers: {
@@ -23,6 +23,16 @@ module.exports = function (config) {
     //         flags: ['-headless'],
     //     },
     // },
+    
+    // The following is for debugging tests
+    browsers: ['ChromeDebugging'],
+    customLaunchers: {
+      ChromeDebugging: {
+        base: 'Chrome',
+        flags: [ '--remote-debugging-port=9333' ]
+      }
+    },
+    
     singleRun: true,
     client: {
       mocha: {

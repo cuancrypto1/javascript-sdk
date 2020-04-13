@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach Karma Chrome",
+      "address": "localhost",
+      "port": 9333,
+      // "preLaunchTask": "npm: test",
+      "sourceMaps": true,
+      "smartStep": true,
+      "pathMapping": {
+        "/": "${workspaceRoot}",
+        "/base/": "${workspaceRoot}/"
+      }
+    }
+  ]
+}
