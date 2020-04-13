@@ -7,6 +7,7 @@ import * as Consts from "./Consts";
 
 export abstract class ServiceBase extends EventEmitter {
   protected config: IConfigBase;
+  
   protected cache: ICache;
 
   constructor(_config: IConfigBase) {
@@ -19,6 +20,7 @@ export abstract class ServiceBase extends EventEmitter {
     if (_config.cache) {
       this.cache = _config.cache;
     }
+    // this.cache = _config.cache ?? new InMemoryCache();
   }
 
   /**
@@ -38,7 +40,11 @@ export abstract class ServiceBase extends EventEmitter {
       },
       {
         key: "FloodGate-SDK-Agent",
-        value: `js-v${this.config.Version}`
+        value: `JS`
+      },
+      {
+        key: "FloodGate-SDK-Version",
+        value: this.config.Version
       }
     ];
 
@@ -100,6 +106,11 @@ export abstract class ServiceBase extends EventEmitter {
   public FetchLocal() {
     // const etagCacheKey = `${this.config.sdkKey}_${Consts.CACHE_ETAG}`;
 
+    if (this.config.localConfigData) {
+      this.config.logger.Log('Using localConfigData');
+      return this.config.localConfigData;
+    }
+
     const json: any = this.cache.Get(this.config.sdkKey);
 
     if (json) {
@@ -110,6 +121,9 @@ export abstract class ServiceBase extends EventEmitter {
   }
 
   private validateJson(json: string): boolean {
+
+    if (json == undefined || json == null) return false;
+
     return true;
   }
 }

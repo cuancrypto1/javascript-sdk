@@ -2,8 +2,7 @@ import { expect, assert } from 'chai';
 import 'mocha';
 import { User } from "../src/User";
 
-describe('Test User Object', 
-  () => {
+describe('Test User Object', () => {
     it('should fail to create instance with no arguments', () => {
       // @ts-ignore <ts(2554)>
       expect(() => new User()).to.throw(Error);

@@ -18,6 +18,8 @@ export interface IConfigBase {
 
   consoleLog: boolean;
 
+  localConfigData?: string;
+
   Version: string;
 
   buildUrl(): string;
@@ -36,7 +38,9 @@ export abstract class ConfigBase implements IConfigBase {
 
   public readonly baseUrl: string = "https://cdn.floodgate.io";
 
-  public configUrl: string = "";
+  public configUrl?: string;
+
+  public localConfigData?: string;
 
   private readonly API_VERSION: string = "v1";
 
@@ -46,10 +50,14 @@ export abstract class ConfigBase implements IConfigBase {
     }
 
     this.sdkKey = _sdkKey;
+
     this.configUrl = this.baseUrl;
+
     this.logger = new DefaultLogger();
 
     this.Version = pckg.version;
+
+    
 
     if (_options) {
       if (!_options.cache) {
@@ -64,6 +72,10 @@ export abstract class ConfigBase implements IConfigBase {
 
       if (_options.configUrl) {
         this.configUrl = _options.configUrl;
+      }
+
+      if (_options.localConfigData) {
+        this.localConfigData = _options.localConfigData;
       }
     }
 

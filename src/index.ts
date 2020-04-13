@@ -12,14 +12,6 @@ export function createClient(_sdkKey: string) {
 }
 
 export function createAutoUpdateClient(_sdkKey: string, _config: any) {
-  
-
-  
-  // const config: IAutoUpdateConfig = {
-  //   configUrl: _config.configUrl,
-  //   refreshInterval: 60
-  // };
-
   return new FloodGateClient(new AutoUpdateConfig(_sdkKey, _config));
 }
 

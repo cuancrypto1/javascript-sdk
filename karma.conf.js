@@ -13,7 +13,8 @@ module.exports = function (config) {
     // port: 9876,
     // colors: true,
     // logLevel: config.LOG_INFO,
-    browsers: ['ChromeHeadless'],
+    // browsers: ['Edge'],
+    browsers: ['Chrome'],
     // autoWatch: false,
     // concurrency: Infinity,
     // customLaunchers: {
@@ -22,6 +23,11 @@ module.exports = function (config) {
     //         flags: ['-headless'],
     //     },
     // },
-    singleRun: true
+    singleRun: true,
+    client: {
+      mocha: {
+        timeout : 2000
+      }
+    }
   });
 };
