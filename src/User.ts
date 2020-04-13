@@ -11,13 +11,12 @@ export class User implements IUser {
   private name?: string | undefined;
   private customAttributes?: { [key: string] : string | number; } = {};
 
-  constructor(_id: string, _email?: string | undefined | null, _customAttributes?: { [key: string] : string | number; } | undefined) {
+  constructor(_id: string, _customAttributes?: { [key: string] : string | number; } | undefined) {
     if (_id === undefined || _id === null || _id === "" || typeof(_id) != "string") {
       throw new Error("User must be created with a unique id");
     }
     
     this.id = _id;
-    this.email = _email;
 
     if (_customAttributes != undefined) {
 
