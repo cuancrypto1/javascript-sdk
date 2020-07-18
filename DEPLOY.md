@@ -2,6 +2,8 @@
 
 1. Run tests
 
+> Make sure karma is installed `npm install -g karma-cli`
+
 ```bash
 npm run test
 ```

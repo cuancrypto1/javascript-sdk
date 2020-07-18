@@ -10,7 +10,9 @@ describe('Test Rollouts', () => {
     refreshInterval: 3600
   };
 
-  it('should return red', (done) => {
+  it('should return red', function(done) {
+    this.timeout(10000);
+
     const def = "grey";
     const exp = "red";
 
@@ -26,7 +28,9 @@ describe('Test Rollouts', () => {
     });
   });
 
-  it('should return green', (done) => {
+  it('should return green', function(done) {
+    this.timeout(10000);
+
     const def = "grey";
     const exp = "green";
 
@@ -42,7 +46,9 @@ describe('Test Rollouts', () => {
     });
   });
 
-  it('should return yellow', (done) => {
+  it('should return yellow', function(done) {
+    this.timeout(10000);
+
     const def = "grey";
     const exp = "yellow";
 
@@ -58,7 +64,9 @@ describe('Test Rollouts', () => {
     });
   });
 
-  it('should return orange', (done) => {
+  it('should return orange', function(done) {
+    this.timeout(10000);
+    
     const def = "grey";
     const exp = "orange";
 
@@ -74,7 +82,9 @@ describe('Test Rollouts', () => {
     });
   });
 
-  it('should return blue', (done) => {
+  it('should return blue', function(done) {
+    this.timeout(10000);
+
     const def = "grey";
     const exp = "blue";
 

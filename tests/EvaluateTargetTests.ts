@@ -11,7 +11,9 @@ describe('Test Targets', () => {
   };
 
   context('Equal To', () => {
-    it('should return yellow', (done) => {
+    it('should return yellow', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "yellow";
 
@@ -32,7 +34,9 @@ describe('Test Targets', () => {
       });
     });
 
-    it('no user attributes should return red', (done) => {
+    it('no user attributes should return red', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "red";
 
@@ -48,7 +52,9 @@ describe('Test Targets', () => {
       });
     });
 
-    it('no matching user attributes should return red', (done) => {
+    it('no matching user attributes should return red', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "red";
 
@@ -70,7 +76,9 @@ describe('Test Targets', () => {
   });
 
   context('Not Equal To', () => {
-    it('should return orange', (done) => {
+    it('should return orange', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "orange";
 
@@ -92,7 +100,9 @@ describe('Test Targets', () => {
   });
 
   context('Greater Than', () => {
-    it('should return blue', (done) => {
+    it('should return blue', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "blue";
 
@@ -114,7 +124,9 @@ describe('Test Targets', () => {
   });
 
   context('Greater Than and Equal To', () => {
-    it('should return green', (done) => {
+    it('should return green', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "green";
 
@@ -136,7 +148,9 @@ describe('Test Targets', () => {
   });
 
   context('Less Than', () => {
-    it('should return yellow', (done) => {
+    it('should return yellow', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "yellow";
 
@@ -158,7 +172,9 @@ describe('Test Targets', () => {
   });
 
   context('Less Than and Equal To', () => {
-    it('should return blue', (done) => {
+    it('should return blue', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "blue";
 
@@ -180,7 +196,9 @@ describe('Test Targets', () => {
   });
 
   context('Contains with Old User Object', () => {
-    it('should return green', (done) => {
+    it('should return green', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "green";
 
@@ -202,7 +220,9 @@ describe('Test Targets', () => {
   });
 
   context('Contains with New User Object', () => {
-    it('should return green', (done) => {
+    it('should return green', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "green";
 
@@ -224,7 +244,9 @@ describe('Test Targets', () => {
   });
 
   context('Not Contain with Old User Object', () => {
-    it('should return yellow', (done) => {
+    it('should return yellow', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "yellow";
 
@@ -246,7 +268,9 @@ describe('Test Targets', () => {
   });
 
   context('Not Contain with New User Object', () => {
-    it('should return yellow', (done) => {
+    it('should return yellow', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "yellow";
 
@@ -268,7 +292,9 @@ describe('Test Targets', () => {
   });
 
   context('Ends With', () => {
-    it('should return yellow', (done) => {
+    it('should return yellow', function(done) {
+      this.timeout(10000);
+
       const def = "grey";
       const exp = "yellow";
 

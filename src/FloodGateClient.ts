@@ -111,4 +111,12 @@ export class FloodGateClient extends EventEmitter implements IFloodGateClient {
       return _defaultValue;
     }
   }
+
+  /**
+   * Forces client to update flags from remote server
+   */
+  ForceRefresh(): void {
+    this.config.logger.Log(`ForceRefresh Requested`);
+    this.service.ForceRefresh();
+  }
 }

@@ -3,6 +3,8 @@ import { IAutoUpdateConfig } from "./AutoUpdateConfig";
 import * as Const from "./Consts";
 
 export interface IAutoUpdateService {
+  ForceRefresh(): void;
+  
   GetFlags(callback: (value: any) => void): void;
 }
 
@@ -20,6 +22,10 @@ export class AutoUpdateService extends ServiceBase implements IAutoUpdateService
     super.FetchRemote(() => {
       this.emit(Const.EVENT_SDK_READY);
     });
+  }
+
+  public ForceRefresh(): void {
+    this.refresh();
   }
 
   private refresh(): void {
