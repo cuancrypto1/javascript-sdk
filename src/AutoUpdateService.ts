@@ -4,7 +4,7 @@ import * as Const from "./Consts";
 
 export interface IAutoUpdateService {
   ForceRefresh(): void;
-  
+
   GetFlags(callback: (value: any) => void): void;
 }
 
@@ -25,7 +25,7 @@ export class AutoUpdateService extends ServiceBase implements IAutoUpdateService
   }
 
   public ForceRefresh(): void {
-    this.refresh();
+    this.Start();
   }
 
   private refresh(): void {
